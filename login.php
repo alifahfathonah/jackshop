@@ -3,6 +3,17 @@ ob_start();
 session_start();
 require_once 'dbconnect.php';
 
+ if( isset($_SESSION['akses']) ) //mengecek session akses
+{
+     header('location:'.$_SESSION['akses']);
+     exit();
+}
+ $error = '';
+ if( isset($_SESSION['error']) ) { //menangani error
+      $error = $_SESSION['error']; //set error
+      unset($_SESSION['error']);
+ }
+
 // if session is set direct to index
 if (isset($_SESSION['user'])) {
     header("Location: index.php");
@@ -16,7 +27,7 @@ if (isset($_POST['btn-login'])) {
 
     // $password = hash('sha256', $upass); // password hashing using SHA256
     $password = $upass;
-    $stmt = $conn->prepare("SELECT id, email, password FROM users WHERE username = ?");
+    $stmt = $conn->prepare("SELECT id, nama, level, email, password FROM users WHERE username = ?");
     $stmt->bind_param("s", $uname);
     /* execute query */
     $stmt->execute();
@@ -26,10 +37,27 @@ if (isset($_POST['btn-login'])) {
 
     $row = mysqli_fetch_array($res, MYSQLI_ASSOC);
 
+
+
     $count = $res->num_rows;
     if ($count == 1 && $row['password'] == $password) {
-        $_SESSION['user'] = $row['id'];
-        header("Location: index.php");
+        $_SESSION['user']  = $row['id'];
+        $_SESSION['nama_u'] = $row['nama'];
+        $_SESSION['akses'] = $row['level'];
+
+        if ($row['level'] === 'admin') {
+            $_SESSION['saya_admin'] = 'TRUE';
+        }
+        else {
+            $_SESSION['saya_member'] = 'TRUE';
+        }
+
+
+        //menuju halaman sesuai hak akses
+        // header("Location: admin/");
+        header('location:'.$url.'/'.$_SESSION['akses'].'/');
+        exit();
+        // header("Location: index.php");
     } elseif ($count == 1) {
         $errMSG = "Bad password";
     } else $errMSG = "User not found";
