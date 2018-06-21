@@ -14,7 +14,7 @@ if (isset($_POST['signup'])) {
     $upass = trim($_POST['pass']);
 
     // hash password with SHA256;
-    $password = hash('sha256', $upass);
+    $password = $upass;
 
     // check email exist or not
     $stmt = $conn->prepare("SELECT email FROM users WHERE email=?");
