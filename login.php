@@ -10,11 +10,14 @@ if (isset($_SESSION['user'])) {
 }
 
 if (isset($_POST['btn-login'])) {
-    $email = $_POST['email'];
+    // $email = $_POST['email'];
+    $uname = $_POST['username'];
     $upass = $_POST['pass'];
 
     // $password = hash('sha256', $upass); // password hashing using SHA256
     $password = $upass;
+    $stmt = $conn->prepare("SELECT id, email, password FROM users WHERE username = ?");
+    $stmt->bind_param("s", $uname);
     /* execute query */
     $stmt->execute();
     //get result
@@ -73,8 +76,8 @@ if (isset($_POST['btn-login'])) {
 
                 <div class="form-group">
                     <div class="input-group">
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                        <input type="email" name="email" class="form-control" placeholder="Email" required/>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input type="text" name="username" class="form-control" placeholder="Username" required/>
                     </div>
                 </div>
 
