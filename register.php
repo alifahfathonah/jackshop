@@ -9,7 +9,7 @@ include_once 'dbconnect.php';
 
 if (isset($_POST['signup'])) {
 
-    $uname = trim($_POST['name']); // get posted data and remove whitespace
+    $name = trim($_POST['name']); // get posted data and remove whitespace
     $uname = trim($_POST['uname']); // get posted data and remove whitespace
     $email = trim($_POST['email']);
     $upass = trim($_POST['pass']);
@@ -36,12 +36,14 @@ if (isset($_POST['signup'])) {
 
         $user_id = mysqli_insert_id($conn);
         if ($user_id > 0) {
-            $_SESSION['user'] = $user_id; // set session and redirect to index page
-            if (isset($_SESSION['user'])) {
-                print_r($_SESSION);
-                header("Location: index.php");
-                exit;
-            }
+            // $_SESSION['user'] = $user_id; // set session and redirect to index page
+            // if (isset($_SESSION['user'])) {
+            //     print_r($_SESSION);
+            //     header('location:'.$url.'/member');
+            //     exit;
+            // }
+            header('location:'.$url.'/');
+            exit;
 
         } else {
             $errTyp = "danger";
