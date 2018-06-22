@@ -9,6 +9,7 @@ include_once 'dbconnect.php';
 
 if (isset($_POST['signup'])) {
 
+    $uname = trim($_POST['name']); // get posted data and remove whitespace
     $uname = trim($_POST['uname']); // get posted data and remove whitespace
     $email = trim($_POST['email']);
     $upass = trim($_POST['pass']);
@@ -28,8 +29,8 @@ if (isset($_POST['signup'])) {
     if ($count == 0) { // if email is not found add user
 
 
-        $stmts = $conn->prepare("INSERT INTO users(username,email,password) VALUES(?, ?, ?)");
-        $stmts->bind_param("sss", $uname, $email, $password);
+        $stmts = $conn->prepare("INSERT INTO users(name,username,email,password) VALUES(?, ?, ?, ?)");
+        $stmts->bind_param("ssss", $name, $uname, $email, $password);
         $res = $stmts->execute();//get result
         $stmts->close();
 
@@ -90,6 +91,13 @@ if (isset($_POST['signup'])) {
                     <?php
                 }
                 ?>
+
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                        <input type="text" name="name" class="form-control" placeholder="Enter Name" required/>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <div class="input-group">

@@ -27,7 +27,7 @@ if (isset($_POST['btn-login'])) {
 
     // $password = hash('sha256', $upass); // password hashing using SHA256
     $password = $upass;
-    $stmt = $conn->prepare("SELECT id, nama, level, email, password FROM users WHERE username = ?");
+    $stmt = $conn->prepare("SELECT id, name, level, email, password FROM users WHERE username = ?");
     $stmt->bind_param("s", $uname);
     /* execute query */
     $stmt->execute();
@@ -42,7 +42,7 @@ if (isset($_POST['btn-login'])) {
     $count = $res->num_rows;
     if ($count == 1 && $row['password'] == $password) {
         $_SESSION['user']  = $row['id'];
-        $_SESSION['nama_u'] = $row['nama'];
+        $_SESSION['nama_u'] = $row['name'];
         $_SESSION['akses'] = $row['level'];
 
         if ($row['level'] === 'admin') {
