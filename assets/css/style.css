@@ -1,6 +1,20 @@
 @charset "utf-8";
 /* CSS Document */
 
+.containerimg img {
+	width: 100px;
+	height: auto;
+	margin-bottom: 40px;
+}
+
+.black-background {
+	background-color: #000000;
+}
+
+.white {
+	color: #ffffff;
+}
+
 *{
 	margin:0;
 	padding:0;

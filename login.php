@@ -80,9 +80,12 @@ if (isset($_POST['btn-login'])) {
         <form method="post" autocomplete="off">
 
             <div class="col-md-12">
+                <div class="containerimg">
+                    <center><img src="assets/img/jshopLogo.png" /></center>
+                </div>
 
                 <div class="form-group">
-                    <h2 class="">Login:</h2>
+                    <center><h4 class="">Welcome to Jackshop, please login!</h4></center>
                 </div>
 
                 <div class="form-group">
@@ -121,15 +124,11 @@ if (isset($_POST['btn-login'])) {
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-block btn-primary" name="btn-login">Login</button>
+                    <button type="submit" class="btn btn-block btn-default black-background white" name="btn-login">Login</button>
                 </div>
 
                 <div class="form-group">
-                    <hr/>
-                </div>
-
-                <div class="form-group">
-                    <a href="register.php" type="button" class="btn btn-block btn-danger"
+                    <a href="register.php" type="button" class="btn btn-block btn-default"
                        name="btn-login">Register</a>
                 </div>
 
